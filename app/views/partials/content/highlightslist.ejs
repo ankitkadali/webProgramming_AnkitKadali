@@ -1,0 +1,86 @@
+<article class="highlightslist <% if (pageID == 'home') { %>jumbotron .d-sm-hide .d-md-block<% } %>">
+  <div class="container">
+    <div class="row">
+      <div class="container-fluid"><!-- responsive -->
+        <div class="col-md-12">
+        <div class="row">
+        <% highlights.forEach(function(item) { %>
+        <div class="<% if (pageID == 'home') { %>col-lg-3 col-md-4 col-sm-6 text-center<% } else { %>col-md-12 <% } %>">
+          <h3 class="highlightslist-title"><%= item.title %></h3>
+          <h5 class="highlightslist-name">
+            <% if(pageID=='highlightList') { %>
+              <iframe src="<%=item.videoEmbed %>" ></iframe>
+            <% } %>
+            <a href="/highlights/<%= item.id %>"><%= item.site %></a>
+          </h5>
+          <div class="highlightslist-info">
+            <a href="/highlights/<%= item.id %>">
+
+              <% if (pageID == 'home') { %>
+                <img class="highlightslist-img-home rounded-circle" src="<%= item.image %>" width="200px" alt="Photo of <%= item.site %>">
+              </a>
+              <% } %>
+            </a>
+              <% if (pageID == 'highlightList') { %>
+                <img class="highlightslist-img rounded-circle pull-left" src="<%= item.image %>"alt="Photo of <%= item.site %>"></a>
+              <% } %>
+            </a>
+
+            <% if (pageID == 'highlightDetail') { %>
+              <img class="highlightslist-img img-responsive pull-left" src="<%= item.image %>" alt="Photo of <%= item.site %>"></a>
+
+            <% } %>
+          </a>
+
+            <% if (pageID !== 'home') { %>
+              <% if (pageID == 'highlightList') { %>
+                <%= item.category %>ea
+              <% } else { %>
+                <%- item.info %>
+
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                      <iframe src="<%= item.videoEmbed %>" style="height:400px;width:500px;"></iframe>
+                    </div>
+                    <div class="col-md-6 col-sm-12" id="map" style="width:400px;height:400px;">
+                    </div>
+                  </div>
+                </div>
+                <div></div>
+                <script type="text/javascript">
+                var position ={
+                  lat:<%=item.lat %>,lng:<%= item.long %>
+                };
+                var map;
+                function initMap() {
+                  map = new google.maps.Map(document.getElementById('map'), {
+                    center: position,
+                    // zoom so that we can actually see the building
+                    zoom: 11
+                  });
+                  var marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: 'you are here'
+                  });
+                }
+              </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqibuMOLZtjU2QkGQq9gIZe58WBdwTolI&callback=initMap"async defer></script>
+
+              <% } %>
+            <% } %>
+
+          </div>
+        </div>
+      <!--</div> -->
+        <%  }); %>
+      </div>
+    </div>
+      </div>
+    </div>
+      </div>
+  <!--  </div><!-- row -->
+  </div><!-- container -->
+
+</article>
